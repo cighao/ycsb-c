@@ -1,5 +1,5 @@
 /*
-* redis_db.cc
+* rocks_db.cc
 * Hao Chen
 * 2019-07-21
  */

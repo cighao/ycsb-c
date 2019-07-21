@@ -1,5 +1,5 @@
 /*
-* redis_db.h
+* rocksdb_db.h
 * Hao Chen
 * 2019-07-21
  */
