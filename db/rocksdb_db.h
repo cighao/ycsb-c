@@ -26,7 +26,7 @@
 
 namespace ycsbc {
 
-class RocksDB : public DB {
+class RocksDB{
  public:
     RocksDB(){
 
