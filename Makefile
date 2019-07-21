@@ -6,7 +6,7 @@ LDFLAGS= -lpthread -ltbb
 SUBDIRS=core db
 SUBSRCS=$(wildcard core/*.cc) $(wildcard db/*.cc)
 $(info    SOURCES is $(SUBSRCS))
-SUBSRCS=$(filter-out db/redis_db.cc, $(SUBSRCS))
+SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))
 $(info    SOURCES is $(SUBSRCS))
 
 OBJECTS=$(SUBSRCS:.cc=.o)
