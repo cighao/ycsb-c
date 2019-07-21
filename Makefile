@@ -17,6 +17,7 @@ SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))   # don't compile redis
 
 OBJECTS=$(SUBSRCS:.cc=.o)
 
+EXEC=ycsbc rocksdb
 
 all: $(SUBDIRS) $(EXEC)
 

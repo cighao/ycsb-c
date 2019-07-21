@@ -1,5 +1,5 @@
 /*
-* rocksdb_db.cc
+* rocksdb.cc
 * Hao Chen
 * 2019-07-21
  */
