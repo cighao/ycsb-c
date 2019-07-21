@@ -42,7 +42,7 @@ int main(const int argc, const char *argv[]) {
 
     ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), 
                            props.GetProperty("log_dir"), 
-                           atoi(props.GetProperty("logs_num").c_str()));
+                           stoi(props.GetProperty("logs_num"));
 
     printf("We store data on %s, log on %s\n", 
                 props.GetProperty("data_dir").c_str(), 
@@ -50,7 +50,25 @@ int main(const int argc, const char *argv[]) {
     printf("We have %s threads, %s log files\n", 
                 props.GetProperty("threadcount").c_str(), 
                 props.GetProperty("logs_num").c_str());
-    
+
+    const int num_threads = stoi(props.GetProperty("threadcount", "1"));
+    int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
+    int ops_per_thread = total_ops / num_threads;
+
+    std::vector<std::thread> threads;
+    for(int i=0; i<num_threads; i++){
+        threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, true));
+    }
+    for(int i=0; i<num_threads; i++){
+        threads[i].join();
+    }
+    rocksdb.Reset();
+    for(int i=0; i<num_threads; i++){
+        threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, false));
+    }
+    for(int i=0; i<num_threads; i++){
+        threads[i].join();
+    }
     return 0;
 }
 

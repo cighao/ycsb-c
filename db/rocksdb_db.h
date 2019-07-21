@@ -54,7 +54,7 @@ class RocksDB{
         write_options.sync = true;
         write_options.disableWAL = false;
         ERR(rocksdb::TransactionDB::Open(options, rocksdb::TransactionDBOptions(), path.c_str(), &db));
-        db->reset_my_state();
+        Reset();
     }
 
     bool Read(const std::string &key);
