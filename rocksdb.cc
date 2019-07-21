@@ -6,6 +6,7 @@
 
 #include "db/rocksdb_db.h"
 
-int aaa(){
+int main(const int argc, const char *argv[]) {
     printf("hello world\n");
+    return 0;
 }
