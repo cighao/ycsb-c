@@ -56,7 +56,6 @@ int main(const int argc, const char *argv[]) {
     printf("hello1\n");
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
         printf("hello2\n");
-
     int ops_per_thread = total_ops / num_threads;
         printf("hello3\n");
 
