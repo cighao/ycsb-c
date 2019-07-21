@@ -5,7 +5,6 @@
  */
 
 #include <cstring>
-#include <string>
 #include <iostream>
 #include <vector>
 #include <future>
@@ -16,6 +15,7 @@
 #include "db/db_factory.h"
 #include "db/rocksdb_db.h"
 
+using namespace std;
 
 void UsageMessage(const char *command);
 bool StrStartWith(const char *str, const char *pre);
