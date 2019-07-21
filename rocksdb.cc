@@ -20,7 +20,7 @@ using namespace std;
 void UsageMessage(const char *command);
 bool StrStartWith(const char *str, const char *pre);
 string ParseCommandLine(int argc, const char *argv[], utils::Properties &props);
-
+void check_args(utils::Properties &props);
 
 int main(const int argc, const char *argv[]) {
     utils::Properties props;
@@ -42,21 +42,21 @@ string ParseCommandLine(int argc, const char *argv[], utils::Properties &props) 
     string filename;
     while (argindex < argc && StrStartWith(argv[argindex], "-")) {
         if (strcmp(argv[argindex], "-threads") == 0) {
-        argindex++;
-        if (argindex >= argc) {
-            UsageMessage(argv[0]);
-            exit(0);
-        }
-        props.SetProperty("threadcount", argv[argindex]);
-        argindex++;
+            argindex++;
+            if (argindex >= argc) {
+                UsageMessage(argv[0]);
+                exit(0);
+            }
+            props.SetProperty("threadcount", argv[argindex]);
+            argindex++;
         }else if (strcmp(argv[argindex], "-logs") == 0) {
-        argindex++;
-        if (argindex >= argc) {
-            UsageMessage(argv[0]);
-            exit(0);
-        }
-        props.SetProperty("logs_num", argv[argindex]);
-        argindex++;
+            argindex++;
+            if (argindex >= argc) {
+              UsageMessage(argv[0]);
+              exit(0);
+            }
+            props.SetProperty("logs_num", argv[argindex]);
+            argindex++;
         }else if (strcmp(argv[argindex], "-datadir") == 0) {
         argindex++;
         if (argindex >= argc) {
@@ -106,6 +106,7 @@ string ParseCommandLine(int argc, const char *argv[], utils::Properties &props) 
         UsageMessage(argv[0]);
         exit(0);
     }
+    check_args(props);
     return filename;
 }
 
@@ -119,4 +120,10 @@ void UsageMessage(const char *command) {
 
 inline bool StrStartWith(const char *str, const char *pre) {
   return strncmp(str, pre, strlen(pre)) == 0;
+}
+
+void check_args(utils::Properties &props){
+    if(props.GetProperty("logs") == ""){
+        printf("We must set logs file number\n");
+    }
 }
