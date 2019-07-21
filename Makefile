@@ -13,7 +13,7 @@ SUBSRCS=$(wildcard core/*.cc) $(wildcard db/*.cc)
 SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))   # don't compile redis
 
 OBJECTS=$(SUBSRCS:.cc=.o)
-EXEC=ycsbc rocksdb
+EXEC=ycsb
 
 all: $(SUBDIRS) $(EXEC)
 
@@ -22,6 +22,9 @@ $(SUBDIRS):
 
 $(EXEC): $(wildcard *.cc) $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
+rocksdb: $(wildcard *.cc) $(OBJECTS)
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocksdb
 
 clean:
 	for dir in $(SUBDIRS); do \
