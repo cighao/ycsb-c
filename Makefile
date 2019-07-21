@@ -1,6 +1,6 @@
 CC=g++
 # need tbb lib
- = -I${TBB_INCLUDE} -Wl,-rpath,${TBB_LIBRARY_RELEASE} -L${TBB_LIBRARY_RELEASE} -ltbb
+TBB_LIB = -I${TBB_INCLUDE} -Wl,-rpath,${TBB_LIBRARY_RELEASE} -L${TBB_LIBRARY_RELEASE} -ltbb
 CFLAGS=-std=c++11 -g -Wall -pthread -I./ ${TBB_LIB}
 # LDFLAGS= -lpthread -ltbb -lhiredis
 LDFLAGS= -lpthread -ltbb   # don't need redis
