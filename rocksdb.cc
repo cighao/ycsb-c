@@ -4,7 +4,18 @@
 * 2019-07-21
  */
 
+#include <cstring>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <future>
+#include "core/utils.h"
+#include "core/timer.h"
+#include "core/client.h"
+#include "core/core_workload.h"
+#include "db/db_factory.h"
 #include "db/rocksdb_db.h"
+
 
 void UsageMessage(const char *command);
 bool StrStartWith(const char *str, const char *pre);
