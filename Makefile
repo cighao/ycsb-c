@@ -26,7 +26,7 @@ $(SUBDIRS):
 ycsbc: ycsbc.cc $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o ycsbc
 
-rocskdb: rocskdb.cc $(OBJECTS)
+rocskdb: rocksdb.cc $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocskdb
 
 
