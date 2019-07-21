@@ -32,7 +32,7 @@ int main(const int argc, const char *argv[]) {
     ycsbc::RocksDB rocksdb("tmp", "tmp", 1);
 
     printf("We store data on %s, log on %s\n", props.GetProperty("data_dir").c_str(), props.GetProperty("log_dir").c_str());
-    printf("We have % threads, %s log files\n", props.GetProperty("threadcount").c_str(), props.GetProperty("logs_num").c_str());
+    printf("We have %s threads, %s log files\n", props.GetProperty("threadcount").c_str(), props.GetProperty("logs_num").c_str());
     return 0;
 }
 
