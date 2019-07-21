@@ -59,9 +59,7 @@ class RocksDB{
 
     bool Read(const std::string &key);
 
-    bool Scan(const std::string &table, const std::string &key,
-           int len, const std::vector<std::string> *fields,
-           std::vector<std::vector<KVPair>> &result) {
+    bool Scan(const std::string &key) {
         throw "Scan: function not implemented!";
     }
 
