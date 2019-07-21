@@ -17,6 +17,8 @@
 #include "rocksdb/options.h"
 #include "rocksdb/utilities/options_util.h"
 #include "rocksdb/utilities/transaction_db.h"
+#include "rocksdb/iostats_context.h"
+#include "rocksdb/perf_context.h"
 
 #define ERR(expr) do{rocksdb::Status ec = (expr); if(!ec.ok()) fprintf(stderr,  \
     "%s:%d: %s: %s\n", __FILE__, __LINE__, #expr, ec.ToString().c_str()), assert(false);}while(0)

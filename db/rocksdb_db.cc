@@ -29,10 +29,10 @@ int RocksDB::Delete(const std::string &table, const std::string &key){
 }
 
 void RocksDB::Reset(){
-    // db->reset_my_state();
-    // rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);
-    // rocksdb::get_perf_context()->Reset();
-    // rocksdb::get_iostats_context()->Reset();
+    db->reset_my_state();
+    rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);
+    rocksdb::get_perf_context()->Reset();
+    rocksdb::get_iostats_context()->Reset();
     total_value_size = total_key_size = 0;
     update_num_ = read_num_ = 0;
     write_wal = write_thread = write_memtable = 0;
