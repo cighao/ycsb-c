@@ -13,14 +13,14 @@ SUBSRCS=$(wildcard core/*.cc) $(wildcard db/*.cc)
 SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))   # don't compile redis
 
 OBJECTS=$(SUBSRCS:.cc=.o)
-EXEC=ycsb
+EXEC=ycsbc
 
 all: $(SUBDIRS) $(EXEC)
 
 $(SUBDIRS):
 	$(MAKE) -C $@
 
-$(EXEC): $(ycsb.cc) $(OBJECTS)
+$(EXEC): $(ycsbc.cc) $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 
