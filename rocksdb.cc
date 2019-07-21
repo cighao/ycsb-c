@@ -30,7 +30,9 @@ int main(const int argc, const char *argv[]) {
     wl.Init(props);
 
     ycsbc::RocksDB rocksdb("tmp", "tmp", 1);
-    printf("hello world\n");
+
+    printf("We store data on %s, log on %s\n", props.GetProperty("data_dir"), props.GetProperty("log_dir"));
+    printf("We have % threads, %s log files\n", props.GetProperty("threadcount"), props.GetProperty("logs_num"));
     return 0;
 }
 
@@ -96,7 +98,7 @@ string ParseCommandLine(int argc, const char *argv[], utils::Properties &props) 
         input.close();
         argindex++;
         } else {
-        printf("Unknown option  '%s'\n", argv[argindex];
+        printf("Unknown option  '%s'\n", argv[argindex]);
         exit(0);
         }
     }
