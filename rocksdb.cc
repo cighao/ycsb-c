@@ -96,7 +96,7 @@ string ParseCommandLine(int argc, const char *argv[], utils::Properties &props) 
         input.close();
         argindex++;
         } else {
-        printf("Unknown option  '%s'\n", argv[argindex].c_str());
+        printf("Unknown option  '%s'\n", argv[argindex];
         exit(0);
         }
     }
