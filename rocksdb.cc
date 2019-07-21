@@ -56,6 +56,8 @@ int main(const int argc, const char *argv[]) {
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
     int ops_per_thread = total_ops / num_threads;
 
+    printf("%d %d %d\n", num_threads, total_ops, ops_per_thread);
+
     std::vector<std::thread> threads;
     for(int i=0; i<num_threads; i++){
         threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, true));
