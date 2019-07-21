@@ -27,8 +27,8 @@ $(SUBDIRS):
 ycsbc: ycsbc.cc $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o ycsbc
 
-rocskdb: rocksdb.cc $(OBJECTS)
-	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocskdb
+rocksdb: rocksdb.cc $(OBJECTS)
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocksdb
 
 clean:
 	for dir in $(SUBDIRS); do \
