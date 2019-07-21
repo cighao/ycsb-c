@@ -7,7 +7,7 @@
 #ifndef YCSB_C_ROCKSDB_CLIENT_H_
 #define YCSB_C_ROCKSDB_CLIENT_H_
 
-#include "../rocksdb_db.h"
+#include "../db/rocksdb_db.h"
 #include "core_workload.h"
 #include "utils.h"
 
