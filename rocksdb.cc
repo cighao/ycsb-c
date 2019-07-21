@@ -4,8 +4,8 @@
 * 2019-07-21
  */
 
-// #include "db/rocksdb_db.h"
+#include "db/rocksdb_db.h"
 
-// int aaa(){
-//     printf("hello world\n");
-// }
+int aaa(){
+    printf("hello world\n");
+}
