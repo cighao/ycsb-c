@@ -15,12 +15,12 @@ namespace ycsbc {
 
 class RocksDBClient {
  public:
-  Client(RocksDB &db, CoreWorkload &wl) : db_(db), workload_(wl) { }
+  RocksDBClient(RocksDB &db, CoreWorkload &wl) : db_(db), workload_(wl) { }
   
   virtual bool DoInsert();
   virtual bool DoTransaction();
   
-  virtual ~Client() { }
+  virtual ~RocksDBClient() { }
   
  protected:
   
