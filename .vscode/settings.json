@@ -60,6 +60,8 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__hash_table": "cpp",
+        "unordered_map": "cpp"
     }
 }

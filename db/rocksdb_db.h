@@ -4,8 +4,8 @@
 * 2019-07-21
  */
 
-#ifndef YCSB_C_REDIS_DB_H_
-#define YCSB_C_REDIS_DB_H_
+#ifndef YCSB_C_ROCKSDB_DB_H_
+#define YCSB_C_ROCKSDB_DB_H_
 
 #include "core/db.h"
 
@@ -57,25 +57,21 @@ class RocksDB : public DB {
         db->reset_my_state();
     }
 
-    int Read(const std::string &table, const std::string &key,
-           const std::vector<std::string> *fields,
-           std::vector<KVPair> &result);
+    bool Read(const std::string &key);
 
-    int Scan(const std::string &table, const std::string &key,
+    bool Scan(const std::string &table, const std::string &key,
            int len, const std::vector<std::string> *fields,
            std::vector<std::vector<KVPair>> &result) {
         throw "Scan: function not implemented!";
     }
 
-    int Update(const std::string &table, const std::string &key,
-             std::vector<KVPair> &values);
-
-    int Insert(const std::string &table, const std::string &key,
-             std::vector<KVPair> &values) {
-        return Update(table, key, values);
+    bool Update(const std::string &key, std::string &value){
+        return Insert(key, value);
     }
 
-    int Delete(const std::string &table, const std::string &key);
+    bool Insert(const std::string &key, std::string &value);
+
+    bool Delete(const std::string &key);
 
     void Reset();
 
@@ -95,5 +91,5 @@ class RocksDB : public DB {
 
 } // ycsbc
 
-#endif // YCSB_C_REDIS_DB_H_
+#endif // YCSB_C_ROCKSDB_DB_H_
 
