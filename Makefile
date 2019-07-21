@@ -24,14 +24,11 @@ all: $(SUBDIRS) $(EXEC)
 $(SUBDIRS):
 	$(MAKE) -C $@
 
-rocskdb: rocksdb.cc $(OBJECTS)
-	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocskdb
-
 ycsbc: ycsbc.cc $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o ycsbc
 
-
-
+rocskdb: rocksdb.cc $(OBJECTS)
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocskdb
 
 clean:
 	for dir in $(SUBDIRS); do \
