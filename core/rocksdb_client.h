@@ -92,7 +92,7 @@ inline int RocksDBClient::TransactionUpdate() {
     } else {
         workload_.BuildUpdate(values);
     }
-    return db_.Update(table, key, values);
+    return db_.Update(key, values);
 }
 
 inline int RocksDBClient::TransactionInsert() {
@@ -101,7 +101,7 @@ inline int RocksDBClient::TransactionInsert() {
     std::vector<DB::KVPair> values;
     workload_.BuildValues(values);
     assert(values.size() == 1);
-    for (KVPair &field_pair : values) {
+    for (DB::KVPair &field_pair : values) {
         std::string value = field_pair.second;
         return db_.Insert(key, value);
     }
