@@ -23,8 +23,6 @@ $(SUBDIRS):
 $(EXEC): $(ycsb.cc) $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
-rocksdb: $(rocksdb.cc) $(OBJECTS)
-	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocksdb
 
 clean:
 	for dir in $(SUBDIRS); do \
