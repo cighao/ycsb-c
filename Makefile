@@ -1,13 +1,13 @@
 CC=g++
-CFLAGS=-std=c++11 -g -Wall -pthread -I./ -I${TBB_INCLUDE} -Wl,-rpath,${TBB_LIBRARY_RELEASE} -L${TBB_LIBRARY_RELEASE} -ltbb
+# need tbb lib
+ = -I${TBB_INCLUDE} -Wl,-rpath,${TBB_LIBRARY_RELEASE} -L${TBB_LIBRARY_RELEASE} -ltbb
+CFLAGS=-std=c++11 -g -Wall -pthread -I./ ${TBB_LIB}
 # LDFLAGS= -lpthread -ltbb -lhiredis
-LDFLAGS= -lpthread -ltbb
+LDFLAGS= -lpthread -ltbb   # don't need redis
 # SUBDIRS=core db redis
 SUBDIRS=core db
 SUBSRCS=$(wildcard core/*.cc) $(wildcard db/*.cc)
-$(info    SOURCES is $(SUBSRCS))
-SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))
-$(info    SOURCES is $(SUBSRCS))
+SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))   # don't compile redis
 
 OBJECTS=$(SUBSRCS:.cc=.o)
 EXEC=ycsbc
