@@ -28,7 +28,7 @@ int RocksDB::Delete(const std::string &table, const std::string &key){
     return 1;
 }
 
-int RocksDB::Reset(){
+void RocksDB::Reset(){
     // db->reset_my_state();
     // rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);
     // rocksdb::get_perf_context()->Reset();

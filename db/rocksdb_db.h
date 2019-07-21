@@ -27,7 +27,7 @@ namespace ycsbc {
 class RocksDB : public DB {
  public:
     RocksDB(){
-        
+
     }
     RocksDB(std::string path, std::string wal_dir, int logs_num):update_num_(0),
         read_num_(0), write_wal(0), write_thread(0), write_memtable(0),
@@ -75,7 +75,7 @@ class RocksDB : public DB {
 
     int Delete(const std::string &table, const std::string &key);
 
-    int Reset();
+    void Reset();
 
  private:
     rocksdb::TransactionDB *db;
