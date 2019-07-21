@@ -6,7 +6,6 @@
 
 #include "db/rocksdb_db.h"
 
-int main(){
-
+int aaa(){
     printf("hello world\n");
 }
