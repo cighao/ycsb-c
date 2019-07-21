@@ -24,7 +24,7 @@ int RocksDB::Update(const string &table, const string &key,
     return 1;
 }
 
-int Delete(const std::string &table, const std::string &key){
+int RocksDB::Delete(const std::string &table, const std::string &key){
     return 1;
 }
 
