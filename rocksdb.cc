@@ -24,7 +24,8 @@ void check_args(utils::Properties &props);
 
 void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_ops, bool is_loading) {
     ycsbc::RocksDBClient client(db, wl);
-    for (int i = 0; i < num_ops; ++i) {
+    printf("hello\n");
+    for (int i = 0; i < num_ops; i++) {
         if (is_loading) {
             client.DoInsert();
         } else {
