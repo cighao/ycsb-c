@@ -5,7 +5,6 @@ CFLAGS=-std=c++11 -c -g -Wall -I${TBB_INCLUDE} -Wl,-rpath,${TBB_LIBRARY_RELEASE}
 INCLUDES=-I../
 SOURCES=$(wildcard *.cc)
 SOURCES := $(filter-out redis_db.cc, $(SOURCES))
-$(info    SOURCES is $(SOURCES))
 OBJECTS=$(SOURCES:.cc=.o)
 
 all: $(SOURCES) $(OBJECTS)
