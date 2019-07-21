@@ -23,7 +23,7 @@ all: $(SUBDIRS) $(EXEC)
 $(SUBDIRS):
 	$(MAKE) -C $@
 
-$(EXEC): $(ycsbc.cc) $(OBJECTS)
+$(EXEC): $(*.cc) $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 
