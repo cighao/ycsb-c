@@ -13,14 +13,17 @@ using namespace std;
 namespace ycsbc {
 
 bool Read(const std::string &key){
+    printf("read \n");
     return true;
 }
 
 bool Insert(const std::string &key, std::string &value){
+    printf("insert \n");
     return true;
 }
 
 bool Delete(const std::string &key){
+    printf("delete \n");
     return true;
 }
 
