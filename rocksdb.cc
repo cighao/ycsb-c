@@ -10,7 +10,7 @@
 #include <future>
 #include "core/utils.h"
 #include "core/timer.h"
-#include "core/client.h"
+#include "core/rocksdb_client.h"
 #include "core/core_workload.h"
 #include "db/db_factory.h"
 #include "db/rocksdb_db.h"
@@ -22,6 +22,17 @@ bool StrStartWith(const char *str, const char *pre);
 string ParseCommandLine(int argc, const char *argv[], utils::Properties &props);
 void check_args(utils::Properties &props);
 
+void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_ops, bool is_loading) {
+    ycsbc::RocksDBClient client(db, wl);
+    for (int i = 0; i < num_ops; ++i) {
+        if (is_loading) {
+            client.DoInsert();
+        } else {
+            client.DoTransaction();
+        }
+    }
+}
+
 int main(const int argc, const char *argv[]) {
     utils::Properties props;
     string file_name = ParseCommandLine(argc, argv, props);
@@ -29,10 +40,17 @@ int main(const int argc, const char *argv[]) {
     ycsbc::CoreWorkload wl;
     wl.Init(props);
 
-    ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), props.GetProperty("log_dir"), atoi(props.GetProperty("logs_num").c_str()));
+    ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), 
+                           props.GetProperty("log_dir"), 
+                           atoi(props.GetProperty("logs_num").c_str()));
 
-    printf("We store data on %s, log on %s\n", props.GetProperty("data_dir").c_str(), props.GetProperty("log_dir").c_str());
-    printf("We have %s threads, %s log files\n", props.GetProperty("threadcount").c_str(), props.GetProperty("logs_num").c_str());
+    printf("We store data on %s, log on %s\n", 
+                props.GetProperty("data_dir").c_str(), 
+                props.GetProperty("log_dir").c_str());
+    printf("We have %s threads, %s log files\n", 
+                props.GetProperty("threadcount").c_str(), 
+                props.GetProperty("logs_num").c_str());
+    
     return 0;
 }
 
