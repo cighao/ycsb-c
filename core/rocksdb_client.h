@@ -8,6 +8,7 @@
 #define YCSB_C_ROCKSDB_CLIENT_H_
 
 #include "../db/rocksdb_db.h"
+#include "../db/db.h"
 #include "core_workload.h"
 #include "utils.h"
 
@@ -38,7 +39,7 @@ inline bool RocksDBClient::DoInsert() {
     std::string key = workload_.NextSequenceKey();
     std::vector<DB::KVPair> values;
     workload_.BuildValues(values);
-    for (KVPair &field_pair : values) {
+    for (DB::KVPair &field_pair : values) {
         std::string value = field_pair.second;
         return db_.Insert(key, value);
     }
