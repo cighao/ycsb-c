@@ -34,7 +34,7 @@ class RocksDBClient {
   CoreWorkload &workload_;
 };
 
-inline bool Client::DoInsert() {
+inline bool RocksDBClient::DoInsert() {
     std::string key = workload_.NextSequenceKey();
     std::vector<DB::KVPair> values;
     workload_.BuildValues(values);
@@ -44,7 +44,7 @@ inline bool Client::DoInsert() {
     }
 }
 
-inline bool Client::DoTransaction() {
+inline bool RocksDBClient::DoTransaction() {
     int status = -1;
     switch (workload_.NextOperation()) {
         case READ:
@@ -69,20 +69,20 @@ inline bool Client::DoTransaction() {
     return (status == DB::kOK);
 }
 
-inline int Client::TransactionRead() {
+inline int RocksDBClient::TransactionRead() {
     const std::string &key = workload_.NextTransactionKey();
     return db_.Read(key);
 }
 
-inline int Client::TransactionReadModifyWrite() {
+inline int RocksDBClient::TransactionReadModifyWrite() {
     throw utils::Exception("TransactionReadModifyWrite() is not implemented!");
 }
 
-inline int Client::TransactionScan() {
+inline int RocksDBClient::TransactionScan() {
     throw utils::Exception("TransactionScan() is not implemented!");
 }
 
-inline int Client::TransactionUpdate() {
+inline int RocksDBClient::TransactionUpdate() {
     const std::string &table = workload_.NextTable();
     const std::string &key = workload_.NextTransactionKey();
     std::vector<DB::KVPair> values;
@@ -94,7 +94,7 @@ inline int Client::TransactionUpdate() {
     return db_.Update(table, key, values);
 }
 
-inline int Client::TransactionInsert() {
+inline int RocksDBClient::TransactionInsert() {
     const std::string &table = workload_.NextTable();
     const std::string &key = workload_.NextSequenceKey();
     std::vector<DB::KVPair> values;
