@@ -29,7 +29,7 @@ int main(const int argc, const char *argv[]) {
     ycsbc::CoreWorkload wl;
     wl.Init(props);
 
-    ycsbc::RocksDB rocksdb("tmp", "tmp", 1);
+    ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), props.GetProperty("log_dir"), atoi(props.GetProperty("logs_num")));
 
     printf("We store data on %s, log on %s\n", props.GetProperty("data_dir").c_str(), props.GetProperty("log_dir").c_str());
     printf("We have %s threads, %s log files\n", props.GetProperty("threadcount").c_str(), props.GetProperty("logs_num").c_str());
@@ -123,7 +123,5 @@ inline bool StrStartWith(const char *str, const char *pre) {
 }
 
 void check_args(utils::Properties &props){
-    if(props.GetProperty("logs") == ""){
-        printf("We must set logs file number\n");
-    }
+    // TODO
 }
