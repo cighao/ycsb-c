@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++11 -g -Wall -pthread -I./
+CFLAGS=-std=c++11 -g -Wall -pthread -I./ -I${TBB_INCLUDE} -Wl,-rpath,${TBB_LIBRARY_RELEASE} -L${TBB_LIBRARY_RELEASE} -ltbb
 # LDFLAGS= -lpthread -ltbb -lhiredis
 LDFLAGS= -lpthread -ltbb
 # SUBDIRS=core db redis
