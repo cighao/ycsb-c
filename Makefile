@@ -20,10 +20,10 @@ all: $(SUBDIRS) $(EXEC)
 $(SUBDIRS):
 	$(MAKE) -C $@
 
-$(EXEC): $(wildcard *.cc) $(OBJECTS)
+$(EXEC): $(ycsb*.cc) $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
-rocksdb: $(wildcard *.cc) $(OBJECTS)
+rocksdb: $(rocksdb *.cc) $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocksdb
 
 clean:
