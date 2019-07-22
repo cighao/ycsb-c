@@ -13,12 +13,12 @@ using namespace std;
 namespace ycsbc {
 
 bool RocksDB::Read(const std::string &key){
-    printf("read \n");
+    //printf("read \n");
     return true;
 }
 
 bool RocksDB::Insert(const std::string &key, std::string &value){
-    printf("insert \n");
+    //printf("insert \n");
     return true;
 }
 
