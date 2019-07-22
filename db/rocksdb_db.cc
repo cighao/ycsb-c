@@ -27,6 +27,11 @@ bool RocksDB::Delete(const std::string &key){
     return true;
 }
 
+bool RocksDB::Update(const std::string &key, std::string &value){
+    printf("delete \n");
+    return true;
+}
+
 void RocksDB::Reset(){
     db->reset_my_state();
     rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);

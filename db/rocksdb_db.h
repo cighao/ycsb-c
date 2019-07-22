@@ -65,9 +65,7 @@ class RocksDB{
 
     bool Insert(const std::string &key, std::string &value);
 
-    bool Update(const std::string &key, std::string &value){
-        return Insert(&key, &value);
-    }
+    bool Update(const std::string &key, std::string &value);
 
     bool Delete(const std::string &key);
 
