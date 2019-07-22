@@ -56,6 +56,10 @@ int main(const int argc, const char *argv[]) {
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
     int ops_per_thread = total_ops / num_threads;
 
+    rocksdb.Reset();
+    rocksdb.Insert("aaaaa","bbbbbb");
+    rocksdb.PrintState();
+
     // load
     std::vector<std::thread> threads;
     for(int i=0; i<num_threads; i++){
