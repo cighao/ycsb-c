@@ -59,7 +59,7 @@ int main(const int argc, const char *argv[]) {
     rocksdb.Reset();
      std::string key = "aaa";
       std::string value = "value";
-    rocksdb.Insert(&key,$value);
+    rocksdb.Insert(&key,&value);
     rocksdb.PrintState();
 
     // load
