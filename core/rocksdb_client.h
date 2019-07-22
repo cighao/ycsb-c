@@ -112,7 +112,7 @@ inline int RocksDBClient::TransactionInsert() {
     }
 }
 
-inline void AddState(){
+inline void RocksDBClient::AddState(){
     db_.AddState();
 }
 
