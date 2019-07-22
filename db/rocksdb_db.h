@@ -71,9 +71,9 @@ class RocksDB{
 
     void Reset();
 
-    void RocksDB::AddState();
+    void AddState();
 
-    void RocksDB::PrintState();
+    void PrintState();
 
  private:
     rocksdb::TransactionDB *db;
