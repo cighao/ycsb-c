@@ -22,7 +22,7 @@ bool StrStartWith(const char *str, const char *pre);
 string ParseCommandLine(int argc, const char *argv[], utils::Properties &props);
 void check_args(utils::Properties &props);
 
-void DelegateClient(ycsbc::RocksDB &db, ycsbc::CoreWorkload &wl, const int num_ops, bool is_loading) {
+void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *&wl, const int num_ops, bool is_loading) {
     ycsbc::RocksDBClient client(db, wl);
     printf("hello\n");
     for (int i = 0; i < num_ops; i++) {
@@ -53,11 +53,8 @@ int main(const int argc, const char *argv[]) {
                 props.GetProperty("logs_num").c_str());
 
     const int num_threads = stoi(props.GetProperty("threadcount", "1"));
-    printf("hello1\n");
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
-        printf("hello2\n");
     int ops_per_thread = total_ops / num_threads;
-        printf("hello3\n");
 
 
     printf("%d %d %d\n", num_threads, total_ops, ops_per_thread);
