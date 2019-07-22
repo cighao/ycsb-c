@@ -31,11 +31,11 @@ class RocksDB{
     RocksDB(){
 
     }
-    RocksDB(std::string path, std::string wal_dir, int logs_num):update_num_(0),
-        read_num_(0), write_wal(0), write_thread_wait(0), write_memtable(0),
+    RocksDB(std::string path, std::string wal_dir, int logs_num):
+        write_options(), read_options(), update_num_(0), read_num_(0), 
+        write_wal(0), write_thread_wait(0), write_memtable(0),
         flush_wal_time(0), complete_parallel_memtable(0), sync_time(0),
-        total_key_size(0), total_value_size(0),
-        write_options(), read_options(){
+        total_key_size(0), total_value_size(0){
         
         rocksdb::BlockBasedTableOptions table_options;
         table_options.block_cache = rocksdb::NewLRUCache((1ul << 30) * 16, 10);
