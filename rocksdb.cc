@@ -47,18 +47,14 @@ int main(const int argc, const char *argv[]) {
                            props.GetProperty("log_dir"), 
                            stoi(props.GetProperty("logs_num")));
 
-    printf("We store data on %s, log on %s\n", 
-                props.GetProperty("data_dir").c_str(), 
-                props.GetProperty("log_dir").c_str());
-    printf("We have %s threads, %s log files\n", 
-                props.GetProperty("threadcount").c_str(), 
-                props.GetProperty("logs_num").c_str());
+    printf("Data location: %s\n", props.GetProperty("data_dir").c_str());
+    printf("Log location: %s\n", props.GetProperty("log_dir").c_str());
+    printf("Threads number: %s\n", props.GetProperty("threadcount").c_str());
+    printf("Log files number: %s\n", props.GetProperty("logs_num").c_str());
 
     const int num_threads = stoi(props.GetProperty("threadcount", "1"));
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
     int ops_per_thread = total_ops / num_threads;
-
-    printf("%d %d %d\n", num_threads, total_ops, ops_per_thread);
 
     std::vector<std::thread> threads;
     for(int i=0; i<num_threads; i++){

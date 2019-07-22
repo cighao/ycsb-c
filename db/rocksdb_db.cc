@@ -19,6 +19,9 @@ bool RocksDB::Read(const std::string &key){
 
 bool RocksDB::Insert(const std::string &key, std::string &value){
     __sync_fetch_and_add(&update_num_, 1);
+    __sync_fetch_and_add(&total_key_size, key.size());
+    __sync_fetch_and_add(&total_value_size, value.size());
+
     return true;
 }
 
@@ -28,7 +31,7 @@ bool RocksDB::Delete(const std::string &key){
 }
 
 bool RocksDB::Update(const std::string &key, std::string &value){
-    __sync_fetch_and_add(&update_num_, 1);
+    Insert(key, value);
     return true;
 }
 
@@ -56,6 +59,8 @@ void RocksDB::PrintState(){
     printf("total request: %lu\n", read_num_ + update_num_);
     printf("update request: %lu\n", update_num_);
     printf("read request: %lu\n", read_num_);
+    printf("total insert key size: %lf GB\n", total_key_size /(1024 * 1024 * 1024.0));
+    printf("total insert value size: %lf GB\n", total_value_size /(1024 * 1024 * 1024.0));
     printf("total wait time: %lf\n", write_thread_wait / 1000000.0);
     printf("write wal time: %lf\n", write_wal / 1000000.0);
     printf("flush wal time: %lf\n", flush_wal_time / 1000000.0);
