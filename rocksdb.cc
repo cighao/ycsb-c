@@ -75,6 +75,8 @@ int main(const int argc, const char *argv[]) {
     for(int i=0; i<num_threads; i++){
         threads[i].join();
     }
+    rocksdb.PrintState();
+    delete rocksdb;
     return 0;
 }
 
