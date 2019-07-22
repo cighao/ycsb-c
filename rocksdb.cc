@@ -57,8 +57,8 @@ int main(const int argc, const char *argv[]) {
     int ops_per_thread = total_ops / num_threads;
 
     rocksdb.Reset();
-    string std::string key = "aaa";
-     string std::string value = "value";
+     std::string key = "aaa";
+      std::string value = "value";
     rocksdb.Insert(&key,$value);
     rocksdb.PrintState();
 
