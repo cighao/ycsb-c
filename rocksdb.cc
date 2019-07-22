@@ -35,6 +35,7 @@ void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_o
         client.AddState();
     }
     printf("wal: %lu\n",rocksdb::get_perf_context()->write_wal_time);
+    
 }
 
 int main(const int argc, const char *argv[]) {
