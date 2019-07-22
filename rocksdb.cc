@@ -23,7 +23,7 @@ string ParseCommandLine(int argc, const char *argv[], utils::Properties &props);
 void check_args(utils::Properties &props);
 
 void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *&wl, const int num_ops, bool is_loading) {
-    ycsbc::RocksDBClient client(db, wl);
+    ycsbc::RocksDBClient client(*db, *wl);
     printf("hello\n");
     for (int i = 0; i < num_ops; i++) {
         if (is_loading) {
