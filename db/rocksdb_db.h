@@ -93,6 +93,46 @@ class RocksDB{
     uint64_t write_wal, write_thread_wait, write_memtable;
     uint64_t flush_wal_time, complete_parallel_memtable, sync_time;
     uint64_t total_key_size, total_value_size;
+
+
+    struct MySet{
+      private:
+        uint64_t size_;
+        double *data_;
+        const uint64_t capacity = 1ul << 30;
+      public:
+        MySet(){
+            size_ = 0;
+            data_ = (double *) mmap(nullptr, capacity, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+            assert(data_ != nullptr);
+        }
+        void insert(double value){
+            uint64_t index = __sync_fetch_and_add(&size_, 1);
+            data_[index] = value;
+        }
+        double sum(){
+            return std::accumulate(data_, data_ + size_, 0.0);
+        }
+        double avg(){
+            return std::accumulate(data_, data_ + size_, 0.0)/size_;
+        }
+        double& operator[](uint64_t index){
+            ROCKSDB_ASSERT(index < size_);
+            return data_[index];
+         }
+        uint64_t size(){
+            return size_;
+        }
+        void reset(){
+            memset(data_, 0, sizeof(double)*size_);
+            size_ = 0;
+        }
+        void deallocate(){
+            ROCKSDB_ASSERT(munmap(data_, capacity) == 0);
+        }
+    };
+    MySet update_time_;
+    MySet read_time_;
 };
 
 } // ycsbc

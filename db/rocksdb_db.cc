@@ -12,10 +12,24 @@ using namespace std;
 
 namespace ycsbc {
 
+#define GET_TIME_OUTPUT(time, x) \
+do { \
+    auto start = std::chrono::high_resolution_clock::now(); \
+    auto result = x; \
+    auto end = std::chrono::high_resolution_clock::now(); \
+    if (_write_result) { \
+        Write(fout, result); \
+    } \
+    time = std::chrono::duration<double>(end - start).count() * 1000; \
+} while(0)
+
+
 bool RocksDB::Read(const std::string &key){
     __sync_fetch_and_add(&read_num_, 1);
     std::string value;
-    ERR(db->Get(read_options, key, &value));
+    double time;
+    GET_TIME_OUTPUT(time, ERR(db->Get(read_options, key, &value)));
+    read_time_.insert(time);
     return true;
 }
 
@@ -23,13 +37,17 @@ bool RocksDB::Insert(const std::string &key, std::string &value){
     __sync_fetch_and_add(&update_num_, 1);
     __sync_fetch_and_add(&total_key_size, key.size());
     __sync_fetch_and_add(&total_value_size, value.size());
-    ERR(db->Put(write_options, key, value));
+    double time;
+    GET_TIME_OUTPUT(time, ERR(db->Put(write_options, key, value)));
+    update_time_.insert(time);
     return true;
 }
 
 bool RocksDB::Delete(const std::string &key){
     __sync_fetch_and_add(&update_num_, 1);
-    db->Delete(write_options, key);
+    double time;
+    GET_TIME_OUTPUT(time, ERR(db->Delete(write_options, key)));
+    update_time_.insert(time);
     return true;
 }
 
@@ -40,6 +58,8 @@ bool RocksDB::Update(const std::string &key, std::string &value){
 
 void RocksDB::Reset(){
     db->reset_my_state();
+    read_time_.reset();
+    update_time_.reset();
     total_value_size = total_key_size = 0;
     update_num_ = read_num_ = 0;
     write_wal = write_thread_wait = write_memtable = 0;
@@ -57,9 +77,14 @@ void RocksDB::AddState(){
 
 void RocksDB::PrintState(){
     printf("----------------------------------------------\n");
+    assert(read_time_.size() == read_num_);
+    assert(update_time_.size() == update_num_);
     printf("total request: %lu\n", read_num_ + update_num_);
     printf("update request: %lu\n", update_num_);
     printf("read request: %lu\n", read_num_);
+    printf("total average: %lf\n", (read_time_.sum + update_time_.sum)/(read_time_.size() + update_time_.size()));
+    printf("update average: %lf\n", update_time_.avg());
+    printf("read average: %lf\n", read_time_.avg());
     printf("total insert key size: %lf GB\n", total_key_size /(1024 * 1024 * 1024.0));
     printf("total insert value size: %lf GB\n", total_value_size /(1024 * 1024 * 1024.0));
     printf("total wait time: %lf\n", write_thread_wait / 1000000.0);
