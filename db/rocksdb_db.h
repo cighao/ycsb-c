@@ -63,11 +63,11 @@ class RocksDB{
         throw "Scan: function not implemented!";
     }
 
+    bool Insert(const std::string &key, std::string &value);
+
     bool Update(const std::string &key, std::string &value){
         return Insert(&key, &value);
     }
-
-    bool Insert(const std::string &key, std::string &value);
 
     bool Delete(const std::string &key);
 
