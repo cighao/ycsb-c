@@ -65,6 +65,7 @@ int main(const int argc, const char *argv[]) {
     for(int i=0; i<num_threads; i++){
         threads[i].join();
     }
+    threads.clear();
     rocksdb.Reset();
     for(int i=0; i<num_threads; i++){
         threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, false));
