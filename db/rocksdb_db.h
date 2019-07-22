@@ -78,7 +78,7 @@ class RocksDB{
 
     void PrintState();
 
-    ~RocksDBStore(){
+    ~RocksDB(){
          delete db;
     }
 
