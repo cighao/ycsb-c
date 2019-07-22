@@ -31,6 +31,9 @@ void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_o
             client.DoTransaction();
         }
     }
+    if (!is_loading){
+        client.AddState();
+    }
 }
 
 int main(const int argc, const char *argv[]) {
@@ -54,7 +57,6 @@ int main(const int argc, const char *argv[]) {
     const int num_threads = stoi(props.GetProperty("threadcount", "1"));
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
     int ops_per_thread = total_ops / num_threads;
-
 
     printf("%d %d %d\n", num_threads, total_ops, ops_per_thread);
 

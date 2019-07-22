@@ -20,6 +20,7 @@ class RocksDBClient {
   
   virtual bool DoInsert();
   virtual bool DoTransaction();
+  virtual void AddState();
   
   virtual ~RocksDBClient() { }
   
@@ -110,6 +111,11 @@ inline int RocksDBClient::TransactionInsert() {
         return db_.Insert(key, value);
     }
 }
+
+inline void AddState(){
+    db_.AddState();
+}
+
 
 } // ycsbc
 

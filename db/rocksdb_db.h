@@ -32,7 +32,7 @@ class RocksDB{
 
     }
     RocksDB(std::string path, std::string wal_dir, int logs_num):update_num_(0),
-        read_num_(0), write_wal(0), write_thread(0), write_memtable(0),
+        read_num_(0), write_wal(0), write_thread_wait(0), write_memtable(0),
         flush_wal_time(0), complete_parallel_memtable(0), sync_time(0),
         total_key_size(0), total_value_size(0){
         
@@ -71,6 +71,10 @@ class RocksDB{
 
     void Reset();
 
+    void RocksDB::AddState();
+
+    void RocksDB::PrintState();
+
  private:
     rocksdb::TransactionDB *db;
     rocksdb::WriteOptions write_options;
@@ -80,7 +84,7 @@ class RocksDB{
     std::string data_dir;
     std::string wal_dir;
     uint64_t update_num_, read_num_;
-    uint64_t write_wal, write_thread, write_memtable;
+    uint64_t write_wal, write_thread_wait, write_memtable;
     uint64_t flush_wal_time, complete_parallel_memtable, sync_time;
     uint64_t total_key_size, total_value_size;
 };

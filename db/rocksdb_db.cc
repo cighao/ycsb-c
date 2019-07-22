@@ -13,22 +13,22 @@ using namespace std;
 namespace ycsbc {
 
 bool RocksDB::Read(const std::string &key){
-    //printf("read \n");
+    __sync_fetch_and_add(&read_num_, 1);
     return true;
 }
 
 bool RocksDB::Insert(const std::string &key, std::string &value){
-    //printf("insert \n");
+    __sync_fetch_and_add(&update_num_, 1);
     return true;
 }
 
 bool RocksDB::Delete(const std::string &key){
-    printf("delete \n");
+    __sync_fetch_and_add(&update_num_, 1);
     return true;
 }
 
 bool RocksDB::Update(const std::string &key, std::string &value){
-    printf("update \n");
+    __sync_fetch_and_add(&update_num_, 1);
     return true;
 }
 
@@ -39,8 +39,29 @@ void RocksDB::Reset(){
     rocksdb::get_iostats_context()->Reset();
     total_value_size = total_key_size = 0;
     update_num_ = read_num_ = 0;
-    write_wal = write_thread = write_memtable = 0;
+    write_wal = write_thread_wait = write_memtable = 0;
     flush_wal_time = complete_parallel_memtable = sync_time = 0;
+}
+
+void RocksDB::AddState(){
+    __sync_fetch_and_add(&write_wal, rocksdb::get_perf_context()->write_wal_time);
+    __sync_fetch_and_add(&write_memtable, rocksdb::get_perf_context()->write_memtable_time);
+    __sync_fetch_and_add(&sync_time, rocksdb::get_iostats_context()->fsync_nanos);
+    __sync_fetch_and_add(&flush_wal_time, rocksdb::get_perf_context()->flush_wal_time;);
+    __sync_fetch_and_add(&complete_parallel_memtable, rocksdb::get_perf_context()->complete_parallel_memtable);
+    __sync_fetch_and_add(&write_thread_wait, rocksdb::get_perf_context()->write_thread_wait_nanos);
+}
+
+void RocksDB::PrintState(){
+    printf("total request: %lu\n", read_num_ + update_num_);
+    printf("update request: %lu\n", update_num_);
+    printf("read request: %lu\n", read_num_);
+    printf("total wait time: %lf\n", write_thread_wait / 1000000.0);
+    printf("write wal time: %lf\n", write_wal / 1000000.0);
+    printf("flush wal time: %lf\n", flush_wal_time / 1000000.0);
+    printf("sync time: %lf\n", sync_time / 1000000.0)
+    printf("write memtable time: %lf\n", write_memtable / 1000000.0);
+    printf("complete parallel time: %lf\n", complete_parallel_memtable / 1000000.0);
 }
 
 } // namespace ycsbc
