@@ -24,6 +24,11 @@ void check_args(utils::Properties &props);
 
 void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_ops, bool is_loading) {
     ycsbc::RocksDBClient client(*db, *wl);
+    if (!is_loading){
+        rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);
+        rocksdb::get_perf_context()->Reset();
+        rocksdb::get_iostats_context()->Reset();
+    }
     for (int i = 0; i < num_ops; i++) {
         if (is_loading) {
             client.DoInsert();
@@ -34,8 +39,6 @@ void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_o
     if (!is_loading){
         client.AddState();
     }
-    printf("wal: %lu\n",rocksdb::get_perf_context()->write_wal_time);
-    
 }
 
 int main(const int argc, const char *argv[]) {
@@ -67,8 +70,8 @@ int main(const int argc, const char *argv[]) {
         threads[i].join();
     }
     // request
-    threads.clear();
     rocksdb.Reset();
+    threads.clear();
     total_ops = stoi(props[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
     ops_per_thread = total_ops / num_threads;
     for(int i=0; i<num_threads; i++){

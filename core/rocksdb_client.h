@@ -120,7 +120,6 @@ inline void RocksDBClient::AddState(){
     db_.AddState();
 }
 
-
 } // ycsbc
 
 #endif // YCSB_C_ROCKSDB_CLIENT_H_
