@@ -28,7 +28,7 @@ bool RocksDB::Insert(const std::string &key, std::string &value){
 
 bool RocksDB::Delete(const std::string &key){
     __sync_fetch_and_add(&update_num_, 1);
-    db->Delete(write_options, key)
+    db->Delete(write_options, key);
     return true;
 }
 
