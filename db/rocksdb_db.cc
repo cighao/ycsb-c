@@ -79,7 +79,7 @@ void RocksDB::PrintState(){
     printf("total request: %lu\n", read_num_ + update_num_);
     printf("update request: %lu\n", update_num_);
     printf("read request: %lu\n", read_num_);
-    printf("total average: %lf\n", (read_time_.sum + update_time_.sum)/(read_time_.size() + update_time_.size()));
+    printf("total average: %lf\n", (read_time_.sum() + update_time_.sum())/(read_time_.size() + update_time_.size()));
     printf("update average: %lf\n", update_time_.avg());
     printf("read average: %lf\n", read_time_.avg());
     printf("total insert key size: %lf GB\n", total_key_size /(1024 * 1024 * 1024.0));
