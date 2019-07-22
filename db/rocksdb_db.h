@@ -25,7 +25,6 @@
 #define ERR(expr) do{rocksdb::Status ec = (expr); if(!ec.ok()) fprintf(stderr,  \
     "%s:%d: %s: %s\n", __FILE__, __LINE__, #expr, ec.ToString().c_str()), assert(false);}while(0)
 
-
 namespace ycsbc {
 
 class RocksDB{

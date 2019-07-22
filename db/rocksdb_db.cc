@@ -15,11 +15,8 @@ namespace ycsbc {
 #define GET_TIME_OUTPUT(time, x) \
 do { \
     auto start = std::chrono::high_resolution_clock::now(); \
-    auto result = x; \
+    x; \
     auto end = std::chrono::high_resolution_clock::now(); \
-    if (_write_result) { \
-        Write(fout, result); \
-    } \
     time = std::chrono::duration<double>(end - start).count() * 1000; \
 } while(0)
 
