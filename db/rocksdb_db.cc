@@ -47,7 +47,7 @@ void RocksDB::AddState(){
     __sync_fetch_and_add(&write_wal, rocksdb::get_perf_context()->write_wal_time);
     __sync_fetch_and_add(&write_memtable, rocksdb::get_perf_context()->write_memtable_time);
     __sync_fetch_and_add(&sync_time, rocksdb::get_iostats_context()->fsync_nanos);
-    __sync_fetch_and_add(&flush_wal_time, rocksdb::get_perf_context()->flush_wal_time;);
+    __sync_fetch_and_add(&flush_wal_time, rocksdb::get_perf_context()->flush_wal_time);
     __sync_fetch_and_add(&complete_parallel_memtable, rocksdb::get_perf_context()->complete_parallel_memtable);
     __sync_fetch_and_add(&write_thread_wait, rocksdb::get_perf_context()->write_thread_wait_nanos);
 }
