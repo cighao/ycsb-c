@@ -15,7 +15,7 @@ namespace ycsbc {
 bool RocksDB::Read(const std::string &key){
     __sync_fetch_and_add(&read_num_, 1);
     std::string value;
-    ERR(txn->Get(read_options, ecf, key, &value));
+    ERR(db->Get(read_options, key, &value));
     return true;
 }
 
