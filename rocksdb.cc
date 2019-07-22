@@ -34,6 +34,7 @@ void DelegateClient(ycsbc::RocksDB *db, ycsbc::CoreWorkload *wl, const int num_o
     if (!is_loading){
         client.AddState();
     }
+    printf("wal: %lu\n",rocksdb::get_perf_context()->write_wal_time);
 }
 
 int main(const int argc, const char *argv[]) {
@@ -55,13 +56,6 @@ int main(const int argc, const char *argv[]) {
     const int num_threads = stoi(props.GetProperty("threadcount", "1"));
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
     int ops_per_thread = total_ops / num_threads;
-
-    rocksdb.Reset();
-     std::string key = "aaa";
-      std::string value = "value";
-    rocksdb.Insert(key, value);
-    rocksdb.AddState();
-    rocksdb.PrintState();
 
     // load
     std::vector<std::thread> threads;
