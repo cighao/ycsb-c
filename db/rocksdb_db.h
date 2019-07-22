@@ -9,6 +9,7 @@
 
 #include "core/db.h"
 #include "unistd.h"
+#include "sys/mman.h"
 
 #include <iostream>
 #include <string>
@@ -118,7 +119,7 @@ class RocksDB{
             return std::accumulate(data_, data_ + size_, 0.0)/size_;
         }
         double& operator[](uint64_t index){
-            ROCKSDB_ASSERT(index < size_);
+            assert(index < size_);
             return data_[index];
          }
         uint64_t size(){
@@ -129,7 +130,7 @@ class RocksDB{
             size_ = 0;
         }
         void deallocate(){
-            ROCKSDB_ASSERT(munmap(data_, capacity) == 0);
+            assert(munmap(data_, capacity) == 0);
         }
     };
     MySet update_time_;
