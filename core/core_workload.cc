@@ -183,7 +183,7 @@ ycsbc::Generator<uint64_t> *CoreWorkload::GetFieldLenGenerator(
 }
 
 void CoreWorkload::BuildValues(std::vector<ycsbc::DB::KVPair> &values) {
-  printf("field_coudt: %d\n", field_count_);
+  assert(field_count_ == 1);
   for (int i = 0; i < field_count_; ++i) {
     ycsbc::DB::KVPair pair;
     pair.first.append("field").append(std::to_string(i));
