@@ -28,7 +28,7 @@ bool RocksDB::Delete(const std::string &key){
 }
 
 bool RocksDB::Update(const std::string &key, std::string &value){
-    printf("delete \n");
+    printf("update \n");
     return true;
 }
 
