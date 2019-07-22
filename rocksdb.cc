@@ -43,7 +43,7 @@ int main(const int argc, const char *argv[]) {
 
     ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), 
                            props.GetProperty("log_dir"), 
-                           stoi(props.GetProperty("logs_num"));
+                           stoi(props.GetProperty("logs_num")));
 
     printf("We store data on %s, log on %s\n", 
                 props.GetProperty("data_dir").c_str(), 

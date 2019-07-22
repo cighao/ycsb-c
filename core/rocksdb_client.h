@@ -84,7 +84,7 @@ inline int RocksDBClient::TransactionScan() {
 }
 
 inline int RocksDBClient::TransactionUpdate() {
-    const std::string &table = workload_.NextTable();
+    //const std::string &table = workload_.NextTable();
     const std::string &key = workload_.NextTransactionKey();
     std::vector<DB::KVPair> values;
     if (workload_.write_all_fields()) {
@@ -92,11 +92,15 @@ inline int RocksDBClient::TransactionUpdate() {
     } else {
         workload_.BuildUpdate(values);
     }
-    return db_.Update(key, values);
+    assert(values.size() == 1);
+    for (DB::KVPair &field_pair : values) {
+        std::string value = field_pair.second;
+        return db_.Insert(key, value);
+    }
 }
 
 inline int RocksDBClient::TransactionInsert() {
-    const std::string &table = workload_.NextTable();
+    //const std::string &table = workload_.NextTable();
     const std::string &key = workload_.NextSequenceKey();
     std::vector<DB::KVPair> values;
     workload_.BuildValues(values);
