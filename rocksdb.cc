@@ -7,7 +7,6 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
-#include <future>
 #include "core/utils.h"
 #include "core/timer.h"
 #include "core/rocksdb_client.h"
