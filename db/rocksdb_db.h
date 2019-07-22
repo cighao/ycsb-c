@@ -78,6 +78,10 @@ class RocksDB{
 
     void PrintState();
 
+    ~RocksDBStore(){
+         delete db;
+    }
+
  private:
     rocksdb::TransactionDB *db;
     rocksdb::WriteOptions write_options;
