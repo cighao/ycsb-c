@@ -56,6 +56,7 @@ int main(const int argc, const char *argv[]) {
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
     int ops_per_thread = total_ops / num_threads;
 
+    // load
     std::vector<std::thread> threads;
     for(int i=0; i<num_threads; i++){
         threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, true));
@@ -63,8 +64,11 @@ int main(const int argc, const char *argv[]) {
     for(int i=0; i<num_threads; i++){
         threads[i].join();
     }
+    // request
     threads.clear();
     rocksdb.Reset();
+    total_ops = stoi(props[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
+    ops_per_thread = total_ops / num_threads;
     for(int i=0; i<num_threads; i++){
         threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, false));
     }
