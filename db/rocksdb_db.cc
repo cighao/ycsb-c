@@ -59,7 +59,7 @@ void RocksDB::PrintState(){
     printf("total wait time: %lf\n", write_thread_wait / 1000000.0);
     printf("write wal time: %lf\n", write_wal / 1000000.0);
     printf("flush wal time: %lf\n", flush_wal_time / 1000000.0);
-    printf("sync time: %lf\n", sync_time / 1000000.0)
+    printf("sync time: %lf\n", sync_time / 1000000.0);
     printf("write memtable time: %lf\n", write_memtable / 1000000.0);
     printf("complete parallel time: %lf\n", complete_parallel_memtable / 1000000.0);
 }
