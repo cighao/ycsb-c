@@ -8,6 +8,7 @@
 #define YCSB_C_ROCKSDB_DB_H_
 
 #include "core/db.h"
+#include "unistd.h"
 
 #include <iostream>
 #include <string>
