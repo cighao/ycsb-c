@@ -56,6 +56,7 @@ void RocksDB::AddState(){
 }
 
 void RocksDB::PrintState(){
+    printf("----------------------------------------------\n");
     printf("total request: %lu\n", read_num_ + update_num_);
     printf("update request: %lu\n", update_num_);
     printf("read request: %lu\n", read_num_);
@@ -67,6 +68,7 @@ void RocksDB::PrintState(){
     printf("sync time: %lf\n", sync_time / 1000000.0);
     printf("write memtable time: %lf\n", write_memtable / 1000000.0);
     printf("complete parallel time: %lf\n", complete_parallel_memtable / 1000000.0);
+     printf("----------------------------------------------\n");
 }
 
 } // namespace ycsbc
