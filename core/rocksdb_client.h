@@ -40,10 +40,12 @@ inline bool RocksDBClient::DoInsert() {
     std::string key = workload_.NextSequenceKey();
     std::vector<DB::KVPair> values;
     workload_.BuildValues(values);
+    assert(values.size() == 1 );
     for (DB::KVPair &field_pair : values) {
         std::string value = field_pair.second;
-        return db_.Insert(key, value);
+        db_.Insert(key, value);
     }
+    return true;
 }
 
 inline bool RocksDBClient::DoTransaction() {
@@ -96,8 +98,9 @@ inline int RocksDBClient::TransactionUpdate() {
     assert(values.size() == 1);
     for (DB::KVPair &field_pair : values) {
         std::string value = field_pair.second;
-        return db_.Insert(key, value);
+        db_.Insert(key, value);
     }
+    return true;
 }
 
 inline int RocksDBClient::TransactionInsert() {
@@ -108,8 +111,9 @@ inline int RocksDBClient::TransactionInsert() {
     assert(values.size() == 1);
     for (DB::KVPair &field_pair : values) {
         std::string value = field_pair.second;
-        return db_.Insert(key, value);
+        db_.Insert(key, value);
     }
+    return true;
 }
 
 inline void RocksDBClient::AddState(){
