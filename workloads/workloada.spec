@@ -18,10 +18,10 @@ fieldcount=1
 
 readallfields=true
 
-readproportion=0.5
+readproportion=0
 updateproportion=0
 scanproportion=0
-insertproportion=0.5
+insertproportion=1
 
 requestdistribution=zipfian
 
