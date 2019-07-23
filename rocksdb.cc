@@ -48,14 +48,14 @@ int main(const int argc, const char *argv[]) {
     ycsbc::CoreWorkload wl;
     wl.Init(props);
 
-    ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), 
-                           props.GetProperty("log_dir"), 
-                           stoi(props.GetProperty("logs_num")));
-
     printf("Data location: %s\n", props.GetProperty("data_dir").c_str());
     printf("Log location: %s\n", props.GetProperty("log_dir").c_str());
     printf("Threads number: %s\n", props.GetProperty("threadcount").c_str());
     printf("Log files number: %s\n", props.GetProperty("logs_num").c_str());
+
+    ycsbc::RocksDB rocksdb(props.GetProperty("data_dir"), 
+                           props.GetProperty("log_dir"), 
+                           stoi(props.GetProperty("logs_num")));
 
     const int num_threads = stoi(props.GetProperty("threadcount", "1"));
     int total_ops = stoi(props[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]);
