@@ -10,7 +10,7 @@ recordcount=1000000
 operationcount=1000000
 workload=com.yahoo.ycsb.workloads.CoreWorkload
 
-fieldlength=100
+fieldlength=1000
 fieldcount=1
 
 
