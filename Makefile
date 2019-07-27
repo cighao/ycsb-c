@@ -17,7 +17,7 @@ SUBSRCS := $(filter-out db/redis_db.cc, $(SUBSRCS))   # don't compile redis
 
 OBJECTS=$(SUBSRCS:.cc=.o)
 
-EXEC=ycsbc rocksdb
+EXEC=ycsbc rocksdb rocksdb_recover
 
 all: $(SUBDIRS) $(EXEC)
 
@@ -29,6 +29,9 @@ ycsbc: ycsbc.cc $(OBJECTS)
 
 rocksdb: rocksdb.cc $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocksdb
+
+rocksdb_recover: rocksdb_recover.cc $(OBJECTS)
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o rocksdb_recover
 
 clean:
 	for dir in $(SUBDIRS); do \
