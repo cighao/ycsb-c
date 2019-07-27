@@ -5,7 +5,7 @@
  */
 #ifndef ROCKSDB_LITE
 
-#include "rocksdb_db.h"
+#include "db/rocksdb_db.h"
 
 int main(const int argc, const char *argv[])  {
 
