@@ -19,7 +19,7 @@ int main(const int argc, const char *argv[])  {
   int log_num = atoi(argv[3]);
 
   // open DB
-  Options options;
+  rocksdb::Options options;
   options.logs_num = log_num;
   options.wal_dir = wal_dir;
   options.create_if_missing = true;
@@ -31,18 +31,20 @@ int main(const int argc, const char *argv[])  {
   options.max_total_wal_size = (1ul << 30)*3;
   options.write_buffer_size =  (1ul << 30)*3;
 
-  std::vector<ColumnFamilyDescriptor> column_descriptor;
-  column_descriptor.push_back(ColumnFamilyDescriptor(kDefaultColumnFamilyName, ColumnFamilyOptions()));
-  std::vector<ColumnFamilyHandle*> column_handles;
+  std::vector<rocksdb::ColumnFamilyDescriptor> column_descriptor;
+  column_descriptor.push_back(rocksdb::ColumnFamilyDescriptor(rocksdb::
+            kDefaultColumnFamilyName, rocksdb::ColumnFamilyOptions()));
+  std::vector<rocksdb::ColumnFamilyHandle*> column_handles;
 
-  TransactionDB* txn_db;
-  Status s = TransactionDB::Open(options, TransactionDBOptions(), kDBPath, column_descriptor, &column_handles, &txn_db);
+  rocksdb::TransactionDB* txn_db;
+  rocksdb::Status s = TransactionDB::Open(options, rocksdb::TransactionDBOptions(), 
+    kDBPath, column_descriptor, &column_handles, &txn_db);
   MY_ASSERT(s);
 
   printf("Recover complete\n");
 
   // Cleanup
-  for(ColumnFamilyHandle *cf: column_handles){
+  for(rocksdb::ColumnFamilyHandle *cf: column_handles){
     if(cf != nullptr)
       delete cf;
   }
