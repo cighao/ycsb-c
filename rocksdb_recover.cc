@@ -5,14 +5,7 @@
  */
 #ifndef ROCKSDB_LITE
 
-#include "rocksdb/db.h"
-#include "rocksdb/options.h"
-#include "rocksdb/slice.h"
-#include "rocksdb/utilities/transaction.h"
-#include "rocksdb/utilities/transaction_db.h"
-
-#include "unistd.h"
-
+#include "rocksdb_db.h"
 
 int main(const int argc, const char *argv[])  {
 
@@ -23,7 +16,7 @@ int main(const int argc, const char *argv[])  {
 
   std::string data_dir = argv[1];
   std::string wal_dir = argv[2];
-  int log_num = stoi(argv[3]);
+  int log_num = atoi(argv[3]);
 
   // open DB
   Options options;
