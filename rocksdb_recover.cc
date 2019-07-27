@@ -38,7 +38,7 @@ int main(const int argc, const char *argv[])  {
 
   rocksdb::TransactionDB* txn_db;
   ERR(TransactionDB::Open(options, rocksdb::TransactionDBOptions(), 
-    kDBPath, column_descriptor, &column_handles, &txn_db));
+    data_dir, column_descriptor, &column_handles, &txn_db));
 
   printf("Recover complete\n");
 
