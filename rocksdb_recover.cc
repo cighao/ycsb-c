@@ -37,7 +37,7 @@ int main(const int argc, const char *argv[])  {
   std::vector<rocksdb::ColumnFamilyHandle*> column_handles;
 
   rocksdb::TransactionDB* txn_db;
-  ERR(TransactionDB::Open(options, rocksdb::TransactionDBOptions(), 
+  ERR(rocksdb::TransactionDB::Open(options, rocksdb::TransactionDBOptions(), 
     data_dir, column_descriptor, &column_handles, &txn_db));
 
   printf("Recover complete\n");
