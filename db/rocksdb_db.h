@@ -42,8 +42,8 @@ class RocksDB{
         table_options.block_cache = rocksdb::NewLRUCache((1ul << 30) * 16, 10);
         rocksdb::Options options;
         options.table_factory.reset(rocksdb::NewBlockBasedTableFactory(table_options));
-        options.max_total_wal_size = (1ul << 30)*5;
-        options.write_buffer_size = (1ul << 30)*5;
+        options.max_total_wal_size = (1ul << 30)*1;
+        options.write_buffer_size = (1ul << 30)*1;
         options.logs_num = logs_num;
         options.wal_dir = wal_dir;
         options.allow_concurrent_memtable_write = true;
