@@ -6,6 +6,7 @@
 #ifndef ROCKSDB_LITE
 
 #include "db/rocksdb_db.h"
+#include "thread"
 
 using namespace rocksdb;
 
