@@ -53,7 +53,7 @@ int main(const int argc, const char *argv[])  {
   for(int i=0;i<req_num;i++){
     int k = rand() % 100000 + 100000;
     ERR(txn_db->Put(write_options,"abc" + std::to_string(k), "defffffffff"));
-    std::this_thread::sleep_for(std::chrono::microseconds(1));
+    std::this_thread::sleep_for(std::chrono::microseconds(10));
   }
   auto end = std::chrono::high_resolution_clock::now();
   double time = std::chrono::duration<double>(end - start).count()*1000;
