@@ -44,8 +44,10 @@ int main(const int argc, const char *argv[])  {
   ERR(rocksdb::TransactionDB::Open(options, rocksdb::TransactionDBOptions(), 
     data_dir, &txn_db));
 
+  rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);
+  rocksdb::get_perf_context()->Reset();
+  rocksdb::get_iostats_context()->Reset();
 
-  start_profile();
   auto start = std::chrono::high_resolution_clock::now();
   for(int i=0;i<req_num;i++){
     int k = rand() % 100000 + 100000;
@@ -59,7 +61,7 @@ int main(const int argc, const char *argv[])  {
   double fsync_time = get_iostats_context()->fsync_nanos/1000000.0;
   double write_memtable = get_perf_context()->write_memtable_time/1000000.0;
   printf("-----------\n");
-  printf("total average latency: %lf ms\n",time/req_num;
+  printf("total average latency: %lf ms\n",time/req_num);
   printf("wait time: %.3lf\n",wait_time/req_num);
   printf("wal time: %.3lf\n",wal_time/req_num);
   printf("wal flush time:%lf ms\n", wal_flush_time/req_num);
