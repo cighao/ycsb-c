@@ -25,8 +25,6 @@ bool RocksDB::Read(const std::string &key){
     uint64_t num = __sync_fetch_and_add(&read_num_, 1);
     if(num % 100000 == 0)
         printf("read %lu requests\n", num);
-    if(num > 999000)
-        printf("read %lu requests\n", num);
     std::string value;
     double time;
     GET_TIME_OUTPUT(time, ERR(db->Get(read_options, key, &value)));
@@ -38,6 +36,8 @@ bool RocksDB::Insert(const std::string &key, std::string &value){
     uint64_t num = __sync_fetch_and_add(&update_num_, 1);
     if(num % 100000 == 0)
         printf("update %lu requests\n", num);
+    if(num > 999000)
+        printf("read %lu requests\n", num);
     __sync_fetch_and_add(&total_key_size, key.size());
     __sync_fetch_and_add(&total_value_size, value.size());
     double time;
