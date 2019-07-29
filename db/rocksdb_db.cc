@@ -22,7 +22,9 @@ do { \
 
 
 bool RocksDB::Read(const std::string &key){
-    __sync_fetch_and_add(&read_num_, 1);
+    uint64_t num = __sync_fetch_and_add(&read_num_, 1);
+    if(num % 100000 == 0)
+        printf("read %lu requests\n", num);
     std::string value;
     double time;
     GET_TIME_OUTPUT(time, ERR(db->Get(read_options, key, &value)));
@@ -31,7 +33,9 @@ bool RocksDB::Read(const std::string &key){
 }
 
 bool RocksDB::Insert(const std::string &key, std::string &value){
-    __sync_fetch_and_add(&update_num_, 1);
+    uint64_t num = __sync_fetch_and_add(&update_num_, 1);
+    if(num % 100000 == 0)
+        printf("update %lu requests\n", num);
     __sync_fetch_and_add(&total_key_size, key.size());
     __sync_fetch_and_add(&total_value_size, value.size());
     double time;
@@ -41,7 +45,9 @@ bool RocksDB::Insert(const std::string &key, std::string &value){
 }
 
 bool RocksDB::Delete(const std::string &key){
-    __sync_fetch_and_add(&update_num_, 1);
+    uint64_t num = __sync_fetch_and_add(&update_num_, 1);
+    if(num % 100000 == 0)
+        printf("update %lu requests\n", num);
     double time;
     GET_TIME_OUTPUT(time, ERR(db->Delete(write_options, key)));
     update_time_.insert(time);
@@ -90,7 +96,7 @@ void RocksDB::PrintState(){
     printf("sync time: %lf\n", sync_time / 1000000.0);
     printf("write memtable time: %lf\n", write_memtable / 1000000.0);
     printf("complete parallel time: %lf\n", complete_parallel_memtable / 1000000.0);
-     printf("----------------------------------------------\n");
+    printf("----------------------------------------------\n");
 }
 
 } // namespace ycsbc
