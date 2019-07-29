@@ -48,11 +48,12 @@ class RocksDB{
         options.wal_dir = wal_dir;
         options.allow_concurrent_memtable_write = true;
         options.enable_pipelined_write = false;
-        options.max_total_wal_size = (1ul << 30)*5;
-        options.table_cache_numshardbits = 10;
-        options.IncreaseParallelism(128);
         options.create_if_missing = true;
         options.error_if_exists = true;
+        options.two_write_queues = false;
+        options.IncreaseParallelism(128);
+        options.max_total_wal_size = (1ul << 30)*5;
+        options.table_cache_numshardbits = 10;
         options.compression = rocksdb::kSnappyCompression;
         options.bottommost_compression = rocksdb::kSnappyCompression;
         write_options.sync = true;
