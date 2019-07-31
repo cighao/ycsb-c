@@ -22,7 +22,8 @@ do { \
 
 
 bool RocksDB::Read(const std::string &key){
-    uint64_t num = __sync_fetch_and_add(&read_num_, 1);
+    __sync_fetch_and_add(&read_num_, 1);
+    //uint64_t num = __sync_fetch_and_add(&read_num_, 1);
     // if(num % 100000 == 0)
     //     printf("read %lu requests\n", num);
     std::string value;
@@ -33,7 +34,8 @@ bool RocksDB::Read(const std::string &key){
 }
 
 bool RocksDB::Insert(const std::string &key, std::string &value){
-    uint64_t num = __sync_fetch_and_add(&update_num_, 1);
+    __sync_fetch_and_add(&update_num_, 1);
+    //uint64_t num = __sync_fetch_and_add(&update_num_, 1);
     // if(num % 100000 == 0)
     //     printf("update %lu requests\n", num);
     __sync_fetch_and_add(&total_key_size, key.size());
