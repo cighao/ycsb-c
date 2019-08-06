@@ -9,14 +9,15 @@
 
 int main(const int argc, const char *argv[])  {
 
-  if(argc != 4){
-      fprintf(stderr, "usage: %s <data dir> <wal dir> <log number>\n", argv[0]);
+  if(argc != 5){
+      fprintf(stderr, "usage: %s <data dir> <wal dir> <log number> <is_concurrent_recovery>\n", argv[0]);
       exit(0);
   }
 
   std::string data_dir = argv[1];
   std::string wal_dir = argv[2];
   int log_num = atoi(argv[3]);
+  int is_concurrent_recovery = atoi(argv[4]);
 
   // open DB
   rocksdb::Options options;
@@ -27,6 +28,11 @@ int main(const int argc, const char *argv[])  {
   options.allow_concurrent_memtable_write = true;
   options.enable_pipelined_write = false;
   options.two_write_queues = false;
+  if(is_concurrent_recovery == 1 ){
+    options.concurrent_recovery = true;
+  }else{
+    options.concurrent_recovery = false;
+  }
 
   options.max_total_wal_size = (1ul << 30)*3;
   options.write_buffer_size =  (1ul << 30)*3;
