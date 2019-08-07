@@ -50,7 +50,7 @@ class RocksDB{
         options.enable_pipelined_write = false;
         options.create_if_missing = true;
         options.error_if_exists = true;
-        options.two_write_queues = false;
+        options.two_write_queues = true;
         options.IncreaseParallelism(128);
         options.max_total_wal_size = (1ul << 30)*10;
         options.table_cache_numshardbits = 10;
