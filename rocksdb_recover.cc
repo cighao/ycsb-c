@@ -34,10 +34,10 @@ int main(const int argc, const char *argv[])  {
     options.concurrent_recovery = false;
   }
 
-  options.max_total_wal_size = (1ul << 30)*3;
-  options.write_buffer_size =  (1ul << 30)*3;
+  options.max_total_wal_size = (1ul << 30)*10;
+  options.write_buffer_size =  (1ul << 30)*10;
   rocksdb::ColumnFamilyOptions def_cfo;
-  def_cfo.write_buffer_size =  (1ul << 30)*3;  
+  def_cfo.write_buffer_size =  (1ul << 30)*10;  
 
   std::vector<rocksdb::ColumnFamilyDescriptor> column_descriptor;
   column_descriptor.push_back(rocksdb::ColumnFamilyDescriptor(rocksdb::kDefaultColumnFamilyName, def_cfo));
