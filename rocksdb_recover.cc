@@ -36,17 +36,18 @@ int main(const int argc, const char *argv[])  {
 
   options.max_total_wal_size = (1ul << 30)*3;
   options.write_buffer_size =  (1ul << 30)*3;
+  rocksdb::ColumnFamilyOptions def_cfo;
+  def_cfo.write_buffer_size =  (1ul << 30)*3;  
 
   std::vector<rocksdb::ColumnFamilyDescriptor> column_descriptor;
-  column_descriptor.push_back(rocksdb::ColumnFamilyDescriptor(rocksdb::
-            kDefaultColumnFamilyName, rocksdb::ColumnFamilyOptions()));
+  column_descriptor.push_back(rocksdb::ColumnFamilyDescriptor(rocksdb::kDefaultColumnFamilyName, def_cfo));
   std::vector<rocksdb::ColumnFamilyHandle*> column_handles;
 
   rocksdb::TransactionDB* txn_db;
   ERR(rocksdb::TransactionDB::Open(options, rocksdb::TransactionDBOptions(), 
     data_dir, column_descriptor, &column_handles, &txn_db));
 
-  printf("Recover complete\n");
+  // printf("Recover complete\n");
 
   // Cleanup
   for(rocksdb::ColumnFamilyHandle *cf: column_handles){
