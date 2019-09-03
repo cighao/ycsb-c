@@ -83,7 +83,7 @@ int main(const int argc, const char *argv[]) {
     }
     auto end = std::chrono::high_resolution_clock::now();
     double time = std::chrono::duration<double>(end - start).count() * 1000;
-    double iops = total_ops / (time * 1000);
+    double iops = total_ops / (time / 1000);
     printf("total IOPS: %.3lf\n", iops);
     rocksdb.PrintState();
     return 0;
