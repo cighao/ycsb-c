@@ -74,14 +74,14 @@ int main(const int argc, const char *argv[]) {
     threads.clear();
     total_ops = stoi(props[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
     ops_per_thread = total_ops / num_threads;
-    double start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
     for(int i=0; i<num_threads; i++){
         threads.push_back(std::thread(DelegateClient, &rocksdb, &wl, ops_per_thread, false));
     }
     for(int i=0; i<num_threads; i++){
         threads[i].join();
     }
-    double end = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
     double time = std::chrono::duration<double>(end - start).count() * 1000;
     double iops = total_ops / time * 1000;
     printf("total IOPS: %.3lf\n", iops);
