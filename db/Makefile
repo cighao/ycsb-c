@@ -9,7 +9,7 @@ CFLAGS=-std=c++11 -c -g -Wall ${TBB_LIB} ${ROCKSDB}
 
 INCLUDES=-I../
 SOURCES=$(wildcard *.cc)
-SOURCES := $(filter-out redis_db.cc, $(SOURCES))    # don't compile redis
+#SOURCES := $(filter-out redis_db.cc, $(SOURCES))    # don't compile redis
 OBJECTS=$(SOURCES:.cc=.o)
 
 all: $(SOURCES) $(OBJECTS)
