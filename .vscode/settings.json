@@ -62,6 +62,10 @@
         "utility": "cpp",
         "vector": "cpp",
         "__hash_table": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "array": "cpp",
+        "complex": "cpp",
+        "set": "cpp",
+        "sstream": "cpp"
     }
 }

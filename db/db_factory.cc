@@ -11,7 +11,7 @@
 #include <string>
 #include "db/basic_db.h"
 #include "db/lock_stl_db.h"
-// #include "db/redis_db.h"
+#include "db/redis_db.h"
 #include "db/tbb_rand_db.h"
 #include "db/tbb_scan_db.h"
 #include "db/rocksdb_db.h"
@@ -29,10 +29,10 @@ DB* DBFactory::CreateDB(utils::Properties &props) {
     int port = stoi(props["port"]);
     int slaves = stoi(props["slaves"]);
     return new RedisDB(props["host"].c_str(), port, slaves);
-  }  else if (props["dbname"] == "tbb_rand") {
+  } else if (props["dbname"] == "tbb_rand") {
     return new TbbRandDB;
   } else if (props["dbname"] == "tbb_scan") {
     return new TbbScanDB;
-  }else return NULL;
+  } else return NULL;
 }
 
