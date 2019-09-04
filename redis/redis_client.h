@@ -51,7 +51,7 @@ inline RedisClient::~RedisClient() {
 
 inline int RedisClient::Command(std::string cmd) {
   redisReply *reply;
-  redisAppendCommand(context_, cmd.data());
+  assert(redisAppendCommand(context_, cmd.data()) == REDIS_OK);
   if (slaves_) {
     redisAppendCommand(context_, "WAIT %d %d", slaves_, 0);
   }
