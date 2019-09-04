@@ -152,7 +152,31 @@ string ParseCommandLine(int argc, const char *argv[], utils::Properties &props) 
       }
       input.close();
       argindex++;
-    } else {
+    }else if (strcmp(argv[argindex], "-logs") == 0) {
+      argindex++;
+      if (argindex >= argc) {
+        UsageMessage(argv[0]);
+        exit(0);
+      }
+      props.SetProperty("logs_num", argv[argindex]);
+      argindex++;
+    }else if (strcmp(argv[argindex], "-datadir") == 0) {
+      argindex++;
+      if (argindex >= argc) {
+        UsageMessage(argv[0]);
+        exit(0);
+      }
+      props.SetProperty("data_dir", argv[argindex]);
+      argindex++;
+    }else if (strcmp(argv[argindex], "-logdir") == 0) {
+      argindex++;
+      if (argindex >= argc) {
+        UsageMessage(argv[0]);
+        exit(0);
+      }
+      props.SetProperty("log_dir", argv[argindex]);
+      argindex++;
+    }  else {
       cout << "Unknown option '" << argv[argindex] << "'" << endl;
       exit(0);
     }
