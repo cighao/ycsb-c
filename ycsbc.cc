@@ -23,6 +23,8 @@ void UsageMessage(const char *command);
 bool StrStartWith(const char *str, const char *pre);
 string ParseCommandLine(int argc, const char *argv[], utils::Properties &props);
 
+void mytest(ycsbc::DB *db);
+
 int DelegateClient(ycsbc::DB *db, ycsbc::CoreWorkload *wl, const int num_ops,
     bool is_loading) {
   db->Init();
@@ -48,6 +50,9 @@ int main(const int argc, const char *argv[]) {
     cout << "Unknown database name " << props["dbname"] << endl;
     exit(0);
   }
+
+  mytest(db);
+  return 1;
 
   ycsbc::CoreWorkload wl;
   wl.Init(props);
@@ -203,3 +208,10 @@ inline bool StrStartWith(const char *str, const char *pre) {
   return strncmp(str, pre, strlen(pre)) == 0;
 }
 
+void mytest(ycsbc::DB *db){
+  std::string table = "aaa";
+  std::string key = "bbbb";
+  std::vector<ycsbc::DB::KVPair> value;
+  value.push_back(ycsbc::DB::KVPair("a1","a2"));
+  db->Update(table, key, value);
+}

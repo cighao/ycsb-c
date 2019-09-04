@@ -9,4 +9,3 @@ for file_name in $workloads; do
   ./ycsbc -db redis -threads 1 -P $file_name -host 127.0.0.1 -port 6379 -slaves 0 2>>ycsbc.output &
   wait
 done
-
