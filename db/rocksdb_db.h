@@ -56,8 +56,8 @@ class RocksDB{
         options.table_cache_numshardbits = 10;
         options.compression = rocksdb::kSnappyCompression;
         options.bottommost_compression = rocksdb::kSnappyCompression;
-        write_options.sync = false;//true;
-        write_options.disableWAL = true;//false;
+        write_options.sync = true;
+        write_options.disableWAL = false;
         ERR(rocksdb::TransactionDB::Open(options, rocksdb::TransactionDBOptions(), path.c_str(), &db));
         Reset();
     }
