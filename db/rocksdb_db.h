@@ -129,7 +129,6 @@ class RocksDB{
             size_ = 0;
         }
         void deallocate(){
-            printf("aaa\n");
             assert(munmap(data_, capacity) == 0);
         }
     };
