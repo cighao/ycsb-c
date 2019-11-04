@@ -29,7 +29,7 @@ bool RocksDB::Read(const std::string &key){
     std::string value;
     double time;
     GET_TIME_OUTPUT(time, ERR(db->Get(read_options, key, &value)));
-    read_time_.insert(time);
+    //read_time_.insert(time);
     return true;
 }
 
@@ -42,7 +42,7 @@ bool RocksDB::Insert(const std::string &key, std::string &value){
     __sync_fetch_and_add(&total_value_size, value.size());
     double time;
     GET_TIME_OUTPUT(time, ERR(db->Put(write_options, key, value)));
-    update_time_.insert(time);
+    //update_time_.insert(time);
     return true;
 }
 
@@ -52,7 +52,7 @@ bool RocksDB::Delete(const std::string &key){
     //     printf("update %lu requests\n", num);
     double time;
     GET_TIME_OUTPUT(time, ERR(db->Delete(write_options, key)));
-    update_time_.insert(time);
+    //update_time_.insert(time);
     return true;
 }
 
